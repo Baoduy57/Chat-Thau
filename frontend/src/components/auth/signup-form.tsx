@@ -36,8 +36,10 @@ export function SignupForm({
   const onSubmit = async (data: signUpFormValues) => {
     const { firstname, lastname, username, email, password } = data;
     // gọi backend để signUp
-    await signUp(username, password, email, firstname, lastname);
-    navigate("/signin");
+    const success = await signUp(username, password, email, firstname, lastname);
+    if (success) {
+      navigate("/signin");
+    }
   };
 
   return (

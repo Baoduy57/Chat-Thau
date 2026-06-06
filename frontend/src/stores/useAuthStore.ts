@@ -40,9 +40,12 @@ export const useAuthStore = create<AuthState>()(
           toast.success(
             "Đăng ký thành công! Bạn sẽ được chuyển sang trang đăng nhập.",
           );
-        } catch (error) {
+          return true;
+        } catch (error: any) {
           console.error(error);
-          toast.error("Đăng ký không thành công");
+          const msg = error?.response?.data?.message;
+          toast.error(msg ?? "Đăng ký không thành công");
+          return false;
         } finally {
           set({ loading: false });
         }
